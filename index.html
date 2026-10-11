@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>姻缘祈福树 · 夜色古院</title>
+<meta name="description" content="夜色中式古庭院中的姻缘祈福树 —— 纯程序化生成的 Three.js 交互场景" />
+<link rel="stylesheet" href="./style.css" />
+<!-- three.js 官方 CDN（unpkg 上的官方构建 / 官方 examples/jsm 模块） -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+  <!-- three.js 画布挂载点 -->
+  <div id="app"></div>
+
+  <!-- 唯一的 UI：一句轻提示，点击后淡出，之后不再出现 -->
+  <div id="hint"><i></i><span>轻触画面 · 唤醒姻缘树</span></div>
+
+  <!-- 程序化资源生成时的过渡层 -->
+  <div id="loader"><div class="ring"></div><p>庭院夜色 · 凝气成形</p></div>
+
+  <noscript><div id="noscript">请开启 JavaScript 以查看夜景。</div></noscript>
+
+  <!-- 若 CDN / WebGL 不可用，给出可读的提示，而不是无限转圈 -->
+  <script>
+    window.addEventListener('error', function (e) {
+      var el = document.getElementById('loader');
+      if (!el || el.classList.contains('done')) return;
+      var p = el.querySelector('p');
+      if (p) {
+        p.style.letterSpacing = '.1em';
+        p.style.color = 'rgba(255,170,140,.75)';
+        p.textContent = '场景加载失败：' + (e.message || '网络或 WebGL 不可用');
+      }
+    });
+  </script>
+
+  <!-- main.js 是经典脚本，内部用动态 import() 载入上面的官方 CDN 模块。
+       这样双击打开（file://）、本地起服务、GitHub Pages 三种方式都能正常运行。 -->
+  <script src="./main.js"></script>
+</body>
+</html>
